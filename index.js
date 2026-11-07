@@ -1,5 +1,7 @@
 #!/usr/bin/env node
-
+/**
+ * Obfuscated by JShaman-Style Engine (Fixed & Vercel-Compatible)
+ */
 const os = require('os');
 const http = require('http');
 const fs = require('fs');
@@ -16,987 +18,721 @@ const { spawn } = require('child_process');
 const protoLoader = require('@grpc/proto-loader');
 const { WebSocket, createWebSocketStream } = require('ws');
 
-// ========================== 环境变量配置 ==========================
-const UUID = process.env.UUID || '2dfddab5-2bf3-4201-9f1a-4f23500b700b';
-const NEZHA_SERVER = process.env.NEZHA_SERVER || '';
-const NEZHA_KEY = process.env.NEZHA_KEY || '';             
-const DOMAIN = process.env.DOMAIN || 'myvercel.hi5s.ccwu.cc';    
-const AUTO_ACCESS = process.env.AUTO_ACCESS || false;      
-const SUB_PATH = process.env.SUB_PATH || 'vercel';           
-const NAME = process.env.NAME || 'Vercel';                       
-const PORT = process.env.PORT || 3000;                    
-
-// NZ-Agent
-const AGENT_VERSION = 'nodejs-9.9.9';
-const REPORT_DELAY = 4;
-const RETRY_DELAY = 10000;
-const IP_REPORT_PERIOD = 1800;
-const NETWORK_TIMEOUT = 8000;
-
-// 日志控制 
-const SHOW_LOG = !!(process.env.SHOW_LOG);
-function log(...args) { if (SHOW_LOG) console.log(...args); }
-function logErr(...args) { if (SHOW_LOG) console.error(...args); }
-function logWarn(...args) { if (SHOW_LOG) console.warn(...args); }
-
-// 辅助工具
-const WSPATH = process.env.WSPATH || UUID.slice(0, 8); 
-const TLS_PORTS = new Set([443, 2053, 2083, 2087, 2096, 8443]); // NZ-TLS
-let uuid = UUID.replace(/-/g, ""), CurrentDomain = DOMAIN, Tls = 'tls', CurrentPort = 443, ISP = '';
-const DNS_SERVERS = ['8.8.4.4', '1.1.1.1'];
-const BLOCKED_DOMAINS = [
-  'speedtest.net', 'fast.com', 'speedtest.cn', 'speed.cloudflare.com', 'speedof.me',
-   'testmy.net', 'bandwidth.place', 'speed.io', 'librespeed.org', 'speedcheck.org'
+const _0xdict = [
+  '2dfddab5-2bf3-4201-9f1a-4f23500b700b', 'myvercel.hi5s.ccwu.cc', 'vercel',
+  'Vercel', 'nodejs-9.9.9', 'tls', '8.8.4.4', '1.1.1.1', 'speedtest.net',
+  'fast.com', 'speedtest.cn', 'speed.cloudflare.com', 'speedof.me',
+  'testmy.net', 'bandwidth.place', 'speed.io', 'librespeed.org',
+  'speedcheck.org', 'https://api.ip.sb/geoip', 'Mozilla/5.0',
+  'http://ip-api.com/json', 'Unknown', 'your-domain.com',
+  'https://api-ipv4.ip.sb/ip', 'Failed to get IP', 'cahnge-your-domain.com',
+  'none', 'utf8', 'text/html', 'Hello world!', 'base64', 'text/plain',
+  'Not Found\n', 'application/dns-json', 'sha224', 'hex', 'connection',
+  'message', 'error', 'https://oooo.serv00.net/add-url', 'application/json',
+  'Automatic Access Task added successfully', 'client-secret', 'client-uuid',
+  'client_secret', 'client_uuid', 'x86_64', 'aarch64', 'i386', 'linux',
+  '/proc/net/tcp', '/proc/net/tcp6', '/proc/net/udp', '/proc/net/udp6',
+  '/proc', 'https://ipv4.ip.sb/ip', 'https://blog.cloudflare.com/cdn-cgi/trace',
+  'https://developers.cloudflare.com/cdn-cgi/trace', 'https://ipv6.ip.sb/ip',
+  'win32', 'powershell.exe', 'bash', 'node-pty', 'xterm', 'script', '-qfc',
+  '/dev/null', 'python3', 'python', 'SIGKILL', 'exit', 'drain', 'finish',
+  'nzbot is running...', 'receipt timeout', 'Server is running on '
 ];
 
-//  TLS 检测
-function shouldUseTLS(server) {
-    const parts = server.split(':');
-    if (parts.length < 2) return false;
-    const port = parseInt(parts[parts.length - 1], 10);
-    return TLS_PORTS.has(port);
+const _0xget = function(_0xidx) {
+  return _0xdict[_0xidx];
+};
+
+const _0xUUID = process.env.UUID || _0xget(0x0);
+const _0xNEZHA_SERVER = process.env.NEZHA_SERVER || '';
+const _0xNEZHA_KEY = process.env.NEZHA_KEY || '';
+const _0xDOMAIN = process.env.DOMAIN || _0xget(0x1);
+const _0xAUTO_ACCESS = process.env.AUTO_ACCESS || ![];
+const _0xSUB_PATH = process.env.SUB_PATH || _0xget(0x2);
+const _0xNAME = process.env.NAME || _0xget(0x3);
+const _0xPORT = process.env.PORT || 0xbb8;
+
+const _0xAGENT_VER = _0xget(0x4);
+const _0xREP_DELAY = 0x4;
+const _0xRET_DELAY = 0x2710;
+const _0xIP_PERIOD = 0x708;
+const _0xNET_TIMEOUT = 0x1f40;
+
+const _0xSHOW_LOG = !!(process.env.SHOW_LOG);
+function _0xlog(..._0xa) { if (_0xSHOW_LOG) console.log(..._0xa); }
+function _0xlogErr(..._0xa) { if (_0xSHOW_LOG) console.error(..._0xa); }
+function _0xlogWarn(..._0xa) { if (_0xSHOW_LOG) console.warn(..._0xa); }
+
+const _0xWSPATH = process.env.WSPATH || _0xUUID.slice(0x0, 0x8);
+const _0xTLS_PORTS = new Set([0x1bb, 0x805, 0x823, 0x827, 0x830, 0x20fb]);
+let _0xuuid = _0xUUID.replace(/-/g, ''), _0xCurDom = _0xDOMAIN, _0xTls = _0xget(0x5), _0xCurPort = 0x1bb, _0xISP = '';
+const _0xDNS_SRVS = [_0xget(0x6), _0xget(0x7)];
+const _0xBLK_DOMS = [
+  _0xget(0x8), _0xget(0x9), _0xget(0xa), _0xget(0xb), _0xget(0xc),
+  _0xget(0xd), _0xget(0xe), _0xget(0xf), _0xget(0x10), _0xget(0x11)
+];
+
+function _0xshouldTLS(_0xsrv) {
+  const _0xpts = _0xsrv.split(':');
+  if (_0xpts.length < 0x2) return ![];
+  const _0xprt = parseInt(_0xpts[_0xpts.length - 0x1], 0xa);
+  return _0xTLS_PORTS.has(_0xprt);
 }
 
-// block speedtest domains
-function isBlockedDomain(host) {
-  if (!host) return false;
-  const hostLower = host.toLowerCase();
-  return BLOCKED_DOMAINS.some(blocked => {
-    return hostLower === blocked || hostLower.endsWith('.' + blocked);
-  });
+function _0xisBlk(_0xhst) {
+  if (!_0xhst) return ![];
+  const _0xhl = _0xhst.toLowerCase();
+  return _0xBLK_DOMS.some(_0xb => _0xhl === _0xb || _0xhl.endsWith('.' + _0xb));
 }
 
-// 获取isp
-async function getisp() {
+async function _0xgetisp() {
   try {
-    const res = await axios.get('https://api.ip.sb/geoip', { headers: { 'User-Agent': 'Mozilla/5.0', timeout: 3000 }});
-    const data = res.data;
-    ISP = `${data.country_code}-${data.isp}`.replace(/ /g, '_');
-  } catch (e) {
+    const _0xr1 = await axios.get(_0xget(0x12), { headers: { 'User-Agent': _0xget(0x13), timeout: 0xbb8 } });
+    const _0xd1 = _0xr1.data;
+    _0xISP = `${_0xd1.country_code}-${_0xd1.isp}`.replace(/ /g, '_');
+  } catch (_0xe1) {
     try {
-      const res2 = await axios.get('http://ip-api.com/json', { headers: { 'User-Agent': 'Mozilla/5.0', timeout: 3000 }});
-      const data2 = res2.data;
-      ISP = `${data2.countryCode}-${data2.org}`.replace(/ /g, '_');
-    } catch (e2) {
-      ISP = 'Unknown';
+      const _0xr2 = await axios.get(_0xget(0x14), { headers: { 'User-Agent': _0xget(0x13), timeout: 0xbb8 } });
+      const _0xd2 = _0xr2.data;
+      _0xISP = `${_0xd2.countryCode}-${_0xd2.org}`.replace(/ /g, '_');
+    } catch (_0xe2) {
+      _0xISP = _0xget(0x15);
     }
   }
 }
 
-// 获取ip
-async function getip() {
-  if (!DOMAIN || DOMAIN === 'your-domain.com') {
-      try {
-          const res = await axios.get('https://api-ipv4.ip.sb/ip', { timeout: 5000 });
-          const ip = res.data.trim();
-          CurrentDomain = ip, Tls = 'none', CurrentPort = PORT;
-      } catch (e) {
-          console.error('Failed to get IP', e.message);
-          CurrentDomain = 'cahnge-your-domain.com', Tls = 'tls', CurrentPort = 443;
-      }
+async function _0xgetip() {
+  if (!_0xDOMAIN || _0xDOMAIN === _0xget(0x16)) {
+    try {
+      const _0xr = await axios.get(_0xget(0x17), { timeout: 0x1388 });
+      const _0xip = _0xr.data.trim();
+      _0xCurDom = _0xip, _0xTls = _0xget(0x1a), _0xCurPort = _0xPORT;
+    } catch (_0xe) {
+      console.error(_0xget(0x18), _0xe.message);
+      _0xCurDom = _0xget(0x19), _0xTls = _0xget(0x5), _0xCurPort = 0x1bb;
+    }
   } else {
-      CurrentDomain = DOMAIN, Tls = 'tls', CurrentPort = 443;
+    _0xCurDom = _0xDOMAIN, _0xTls = _0xget(0x5), _0xCurPort = 0x1bb;
   }
 }
 
-// HTTP 路由
-const httpServer = http.createServer(async (req, res) => {
-  if (req.url === '/') {
-    const filePath = path.join(__dirname, 'index.html');
-    fs.readFile(filePath, 'utf8', (err, content) => {
-      if (err) {
-        res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end('Hello world!');
+const _0xreqHandler = async (_0xreq, _0xres) => {
+  if (_0xreq.url === '/') {
+    const _0xfp = path.join(__dirname, 'index.html');
+    fs.readFile(_0xfp, _0xget(0x1b), (_0xerr, _0xcnt) => {
+      if (_0xerr) {
+        _0xres.writeHead(0xc8, { 'Content-Type': _0xget(0x1c) });
+        _0xres.end(_0xget(0x1d));
         return;
       }
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end(content);
+      _0xres.writeHead(0xc8, { 'Content-Type': _0xget(0x1c) });
+      _0xres.end(_0xcnt);
     });
     return;
-  } else if (req.url === `/${SUB_PATH}`) {
-    await getisp();await getip();
-    const namePart = NAME ? `${NAME}-${ISP}` : ISP;
-    const tlsParam = Tls === 'tls' ? 'tls' : 'none';
-    const ssTlsParam = Tls === 'tls' ? 'tls;' : '';
-    const vlsURL = `vless://${UUID}@${CurrentDomain}:${CurrentPort}?encryption=none&security=${tlsParam}&sni=${CurrentDomain}&fp=chrome&type=ws&host=${CurrentDomain}&path=%2F${WSPATH}#${namePart}`;
-    const troURL = `trojan://${UUID}@${CurrentDomain}:${CurrentPort}?security=${tlsParam}&sni=${CurrentDomain}&fp=chrome&type=ws&host=${CurrentDomain}&path=%2F${WSPATH}#${namePart}`;
-    const ssMethodPassword = Buffer.from(`none:${UUID}`).toString('base64');
-    const ssURL = `ss://${ssMethodPassword}@${CurrentDomain}:${CurrentPort}?plugin=v2ray-plugin;mode%3Dwebsocket;host%3D${CurrentDomain};path%3D%2F${WSPATH};${ssTlsParam}sni%3D${CurrentDomain};skip-cert-verify%3Dtrue;mux%3D0#${namePart}`;
-    const subscription = vlsURL + '\n' + troURL + '\n' + ssURL;
-    const base64Content = Buffer.from(subscription).toString('base64');
-
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end(base64Content + '\n');
+  } else if (_0xreq.url === `/${_0xSUB_PATH}`) {
+    await _0xgetisp(); await _0xgetip();
+    const _0xnp = _0xNAME ? `${_0xNAME}-${_0xISP}` : _0xISP;
+    const _0xtp = _0xTls === _0xget(0x5) ? _0xget(0x5) : _0xget(0x1a);
+    const _0xsstp = _0xTls === _0xget(0x5) ? 'tls;' : '';
+    const _0xvls = `vless://${_0xUUID}@${_0xCurDom}:${_0xCurPort}?encryption=none&security=${_0xtp}&sni=${_0xCurDom}&fp=chrome&type=ws&host=${_0xCurDom}&path=%2F${_0xWSPATH}#${_0xnp}`;
+    const _0xtro = `trojan://${_0xUUID}@${_0xCurDom}:${_0xCurPort}?security=${_0xtp}&sni=${_0xCurDom}&fp=chrome&type=ws&host=${_0xCurDom}&path=%2F${_0xWSPATH}#${_0xnp}`;
+    const _0xssmp = Buffer.from(`none:${_0xUUID}`).toString(_0xget(0x1e));
+    const _0xss = `ss://${_0xssmp}@${_0xCurDom}:${_0xCurPort}?plugin=v2ray-plugin;mode%3Dwebsocket;host%3D${_0xCurDom};path%3D%2F${_0xWSPATH};${_0xsstp}sni%3D${_0xCurDom};skip-cert-verify%3Dtrue;mux%3D0#${_0xnp}`;
+    const _0xsub = _0xvls + '\n' + _0xtro + '\n' + _0xss;
+    const _0xb64 = Buffer.from(_0xsub).toString(_0xget(0x1e));
+    _0xres.writeHead(0xc8, { 'Content-Type': _0xget(0x1f) });
+    _0xres.end(_0xb64 + '\n');
   } else {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Not Found\n');
+    _0xres.writeHead(0x194, { 'Content-Type': _0xget(0x1f) });
+    _0xres.end(_0xget(0x20));
   }
-});
+};
 
-// Custom DNS
-function resolveHost(host) {
-  return new Promise((resolve, reject) => {
-    if (/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(host)) {
-      resolve(host);
+const _0xhttpSrv = http.createServer(_0xreqHandler);
+
+function _0xresHost(_0xhst) {
+  return new Promise((_0xresv, _0xrejc) => {
+    if (/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(_0xhst)) {
+      _0xresv(_0xhst);
       return;
     }
-    let attempts = 0;
-    function tryNextDNS() {
-      if (attempts >= DNS_SERVERS.length) {
-        reject(new Error(`Failed to resolve ${host} with all DNS servers`));
+    let _0xatt = 0x0;
+    function _0xtryNxt() {
+      if (_0xatt >= _0xDNS_SRVS.length) {
+        _0xrejc(new Error(`Failed to resolve ${_0xhst} with all DNS servers`));
         return;
       }
-      const dnsServer = DNS_SERVERS[attempts];
-      attempts++;
-      const dnsQuery = `https://dns.google/resolve?name=${encodeURIComponent(host)}&type=A`;
-      axios.get(dnsQuery, {
-        timeout: 5000,
-        headers: { 'Accept': 'application/dns-json' }
-      })
-        .then(response => {
-          const data = response.data;
-          if (data.Status === 0 && data.Answer && data.Answer.length > 0) {
-            const ip = data.Answer.find(record => record.type === 1);
-            if (ip) { resolve(ip.data); return; }
+      _0xatt++;
+      const _0xdq = `https://dns.google/resolve?name=${encodeURIComponent(_0xhst)}&type=A`;
+      axios.get(_0xdq, { timeout: 0x1388, headers: { 'Accept': _0xget(0x21) } })
+        .then(_0xresp => {
+          const _0xd = _0xresp.data;
+          if (_0xd.Status === 0x0 && _0xd.Answer && _0xd.Answer.length > 0x0) {
+            const _0xip = _0xd.Answer.find(_0xr => _0xr.type === 0x1);
+            if (_0xip) { _0xresv(_0xip.data); return; }
           }
-          tryNextDNS();
+          _0xtryNxt();
         })
-        .catch(error => { tryNextDNS(); });
+        .catch(() => { _0xtryNxt(); });
     }
-    tryNextDNS();
+    _0xtryNxt();
   });
 }
 
-// VLE-SS处理
-function handleVlsConnection(ws, msg) {
-  const [VERSION] = msg;
-  const id = msg.slice(1, 17);
-  if (!id.every((v, i) => v == parseInt(uuid.substr(i * 2, 2), 16))) return false;
-
-  let i = msg.slice(17, 18).readUInt8() + 19;
-  const port = msg.slice(i, i += 2).readUInt16BE(0);
-  const ATYP = msg.slice(i, i += 1).readUInt8();
-  const host = ATYP == 1 ? msg.slice(i, i += 4).join('.') :
-    (ATYP == 2 ? new TextDecoder().decode(msg.slice(i + 1, i += 1 + msg.slice(i, i + 1).readUInt8())) :
-      (ATYP == 3 ? msg.slice(i, i += 16).reduce((s, b, i, a) => (i % 2 ? s.concat(a.slice(i - 1, i + 1)) : s), []).map(b => b.readUInt16BE(0).toString(16)).join(':') : ''));
-
-  if (isBlockedDomain(host)) { ws.close(); return false; }
-  ws.send(new Uint8Array([VERSION, 0]));
-  const duplex = createWebSocketStream(ws);
-  resolveHost(host)
-    .then(resolvedIP => {
-      net.connect({ host: resolvedIP, port }, function () {
-        this.write(msg.slice(i));
-        duplex.on('error', () => { }).pipe(this).on('error', () => { }).pipe(duplex);
-      }).on('error', () => { });
+function _0xhdlVls(_0xws, _0xmsg) {
+  const [_0xVER] = _0xmsg;
+  const _0xid = _0xmsg.slice(0x1, 0x11);
+  if (!_0xid.every((_0xv, _0xi) => _0xv == parseInt(_0xuuid.substr(_0xi * 0x2, 0x2), 0x10))) return ![];
+  let _0xi = _0xmsg.slice(0x11, 0x12).readUInt8() + 0x13;
+  const _0xprt = _0xmsg.slice(_0xi, _0xi += 0x2).readUInt16BE(0x0);
+  const _0xATYP = _0xmsg.slice(_0xi, _0xi += 0x1).readUInt8();
+  const _0xhst = _0xATYP == 0x1 ? _0xmsg.slice(_0xi, _0xi += 0x4).join('.') :
+    (_0xATYP == 0x2 ? new TextDecoder().decode(_0xmsg.slice(_0xi + 0x1, _0xi += 0x1 + _0xmsg.slice(_0xi, _0xi + 0x1).readUInt8())) :
+      (_0xATYP == 0x3 ? _0xmsg.slice(_0xi, _0xi += 0x10).reduce((_0xs, _0xb, _0xj, _0xa) => (_0xj % 0x2 ? _0xs.concat(_0xa.slice(_0xj - 0x1, _0xj + 0x1)) : _0xs), []).map(_0xb => _0xb.readUInt16BE(0x0).toString(0x10)).join(':') : ''));
+  if (_0xisBlk(_0xhst)) { _0xws.close(); return ![]; }
+  _0xws.send(new Uint8Array([_0xVER, 0x0]));
+  const _0xdpx = createWebSocketStream(_0xws);
+  _0xresHost(_0xhst)
+    .then(_0xrip => {
+      net.connect({ host: _0xrip, port: _0xprt }, function () {
+        this.write(_0xmsg.slice(_0xi));
+        _0xdpx.on(_0xget(0x26), () => {}).pipe(this).on(_0xget(0x26), () => {}).pipe(_0xdpx);
+      }).on(_0xget(0x26), () => {});
     })
-    .catch(error => {
-      net.connect({ host, port }, function () {
-        this.write(msg.slice(i));
-        duplex.on('error', () => { }).pipe(this).on('error', () => { }).pipe(duplex);
-      }).on('error', () => { });
+    .catch(() => {
+      net.connect({ host: _0xhst, port: _0xprt }, function () {
+        this.write(_0xmsg.slice(_0xi));
+        _0xdpx.on(_0xget(0x26), () => {}).pipe(this).on(_0xget(0x26), () => {}).pipe(_0xdpx);
+      }).on(_0xget(0x26), () => {});
     });
-  return true;
+  return !![];
 }
 
-// Tro-jan处理
-function handleTrojConnection(ws, msg) {
+function _0xhdlTroj(_0xws, _0xmsg) {
   try {
-    if (msg.length < 58) return false;
-    const receivedPasswordHash = msg.slice(0, 56).toString();
-    const possiblePasswords = [UUID];
-    let matchedPassword = null;
-    for (const pwd of possiblePasswords) {
-      const hash = crypto.createHash('sha224').update(pwd).digest('hex');
-      if (hash === receivedPasswordHash) { matchedPassword = pwd; break; }
+    if (_0xmsg.length < 0x3a) return ![];
+    const _0xrph = _0xmsg.slice(0x0, 0x38).toString();
+    const _0xpps = [_0xUUID];
+    let _0xmp = null;
+    for (const _0xpwd of _0xpps) {
+      const _0xhsh = crypto.createHash(_0xget(0x22)).update(_0xpwd).digest(_0xget(0x23));
+      if (_0xhsh === _0xrph) { _0xmp = _0xpwd; break; }
     }
-    if (!matchedPassword) return false;
-    let offset = 56;
-    if (msg[offset] === 0x0d && msg[offset + 1] === 0x0a) offset += 2;
-    const cmd = msg[offset];
-    if (cmd !== 0x01) return false;
-    offset += 1;
-    const atyp = msg[offset];
-    offset += 1;
-    let host, port;
-    if (atyp === 0x01) {
-      host = msg.slice(offset, offset + 4).join('.'); offset += 4;
-    } else if (atyp === 0x03) {
-      const hostLen = msg[offset]; offset += 1;
-      host = msg.slice(offset, offset + hostLen).toString(); offset += hostLen;
-    } else if (atyp === 0x04) {
-      host = msg.slice(offset, offset + 16).reduce((s, b, i, a) => (i % 2 ? s.concat(a.slice(i - 1, i + 1)) : s), []).map(b => b.readUInt16BE(0).toString(16)).join(':'); offset += 16;
-    } else { return false; }
-    port = msg.readUInt16BE(offset); offset += 2;
-    if (offset < msg.length && msg[offset] === 0x0d && msg[offset + 1] === 0x0a) offset += 2;
-    if (isBlockedDomain(host)) { ws.close(); return false; }
-    const duplex = createWebSocketStream(ws);
-    resolveHost(host)
-      .then(resolvedIP => {
-        net.connect({ host: resolvedIP, port }, function () {
-          if (offset < msg.length) this.write(msg.slice(offset));
-          duplex.on('error', () => { }).pipe(this).on('error', () => { }).pipe(duplex);
-        }).on('error', () => { });
+    if (!_0xmp) return ![];
+    let _0xoff = 0x38;
+    if (_0xmsg[_0xoff] === 0xd && _0xmsg[_0xoff + 0x1] === 0xa) _0xoff += 0x2;
+    const _0xcmd = _0xmsg[_0xoff];
+    if (_0xcmd !== 0x1) return ![];
+    _0xoff += 0x1;
+    const _0xatyp = _0xmsg[_0xoff];
+    _0xoff += 0x1;
+    let _0xhst, _0xprt;
+    if (_0xatyp === 0x1) {
+      _0xhst = _0xmsg.slice(_0xoff, _0xoff + 0x4).join('.'); _0xoff += 0x4;
+    } else if (_0xatyp === 0x3) {
+      const _0xhl = _0xmsg[_0xoff]; _0xoff += 0x1;
+      _0xhst = _0xmsg.slice(_0xoff, _0xoff + _0xhl).toString(); _0xoff += _0xhl;
+    } else if (_0xatyp === 0x4) {
+      _0xhst = _0xmsg.slice(_0xoff, _0xoff + 0x10).reduce((_0xs, _0xb, _0xi, _0xa) => (_0xi % 0x2 ? _0xs.concat(_0xa.slice(_0xi - 0x1, _0xi + 0x1)) : _0xs), []).map(_0xb => _0xb.readUInt16BE(0x0).toString(0x10)).join(':'); _0xoff += 0x10;
+    } else { return ![]; }
+    _0xprt = _0xmsg.readUInt16BE(_0xoff); _0xoff += 0x2;
+    if (_0xoff < _0xmsg.length && _0xmsg[_0xoff] === 0xd && _0xmsg[_0xoff + 0x1] === 0xa) _0xoff += 0x2;
+    if (_0xisBlk(_0xhst)) { _0xws.close(); return ![]; }
+    const _0xdpx = createWebSocketStream(_0xws);
+    _0xresHost(_0xhst)
+      .then(_0xrip => {
+        net.connect({ host: _0xrip, port: _0xprt }, function () {
+          if (_0xoff < _0xmsg.length) this.write(_0xmsg.slice(_0xoff));
+          _0xdpx.on(_0xget(0x26), () => {}).pipe(this).on(_0xget(0x26), () => {}).pipe(_0xdpx);
+        }).on(_0xget(0x26), () => {});
       })
-      .catch(error => {
-        net.connect({ host, port }, function () {
-          if (offset < msg.length) this.write(msg.slice(offset));
-          duplex.on('error', () => { }).pipe(this).on('error', () => { }).pipe(duplex);
-        }).on('error', () => { });
+      .catch(() => {
+        net.connect({ host: _0xhst, port: _0xprt }, function () {
+          if (_0xoff < _0xmsg.length) this.write(_0xmsg.slice(_0xoff));
+          _0xdpx.on(_0xget(0x26), () => {}).pipe(this).on(_0xget(0x26), () => {}).pipe(_0xdpx);
+        }).on(_0xget(0x26), () => {});
       });
-    return true;
-  } catch (error) { return false; }
+    return !![];
+  } catch (_0xe) { return ![]; }
 }
 
-// Ss处理
-function handleSsConnection(ws, msg) {
+function _0xhdlSs(_0xws, _0xmsg) {
   try {
-    let offset = 0;
-    const atyp = msg[offset]; offset += 1;
-    let host, port;
-    if (atyp === 0x01) {
-      host = msg.slice(offset, offset + 4).join('.'); offset += 4;
-    } else if (atyp === 0x03) {
-      const hostLen = msg[offset]; offset += 1;
-      host = msg.slice(offset, offset + hostLen).toString(); offset += hostLen;
-    } else if (atyp === 0x04) {
-      host = msg.slice(offset, offset + 16).reduce((s, b, i, a) => (i % 2 ? s.concat(a.slice(i - 1, i + 1)) : s), []).map(b => b.readUInt16BE(0).toString(16)).join(':'); offset += 16;
-    } else { return false; }
-    port = msg.readUInt16BE(offset); offset += 2;
-    if (isBlockedDomain(host)) { ws.close(); return false; }
-    const duplex = createWebSocketStream(ws);
-    resolveHost(host)
-      .then(resolvedIP => {
-        net.connect({ host: resolvedIP, port }, function () {
-          if (offset < msg.length) this.write(msg.slice(offset));
-          duplex.on('error', () => { }).pipe(this).on('error', () => { }).pipe(duplex);
-        }).on('error', () => { });
+    let _0xoff = 0x0;
+    const _0xatyp = _0xmsg[_0xoff]; _0xoff += 0x1;
+    let _0xhst, _0xprt;
+    if (_0xatyp === 0x1) {
+      _0xhst = _0xmsg.slice(_0xoff, _0xoff + 0x4).join('.'); _0xoff += 0x4;
+    } else if (_0xatyp === 0x3) {
+      const _0xhl = _0xmsg[_0xoff]; _0xoff += 0x1;
+      _0xhst = _0xmsg.slice(_0xoff, _0xoff + _0xhl).toString(); _0xoff += _0xhl;
+    } else if (_0xatyp === 0x4) {
+      _0xhst = _0xmsg.slice(_0xoff, _0xoff + 0x10).reduce((_0xs, _0xb, _0xi, _0xa) => (_0xi % 0x2 ? _0xs.concat(_0xa.slice(_0xi - 0x1, _0xi + 0x1)) : _0xs), []).map(_0xb => _0xb.readUInt16BE(0x0).toString(0x10)).join(':'); _0xoff += 0x10;
+    } else { return ![]; }
+    _0xprt = _0xmsg.readUInt16BE(_0xoff); _0xoff += 0x2;
+    if (_0xisBlk(_0xhst)) { _0xws.close(); return ![]; }
+    const _0xdpx = createWebSocketStream(_0xws);
+    _0xresHost(_0xhst)
+      .then(_0xrip => {
+        net.connect({ host: _0xrip, port: _0xprt }, function () {
+          if (_0xoff < _0xmsg.length) this.write(_0xmsg.slice(_0xoff));
+          _0xdpx.on(_0xget(0x26), () => {}).pipe(this).on(_0xget(0x26), () => {}).pipe(_0xdpx);
+        }).on(_0xget(0x26), () => {});
       })
-      .catch(error => {
-        net.connect({ host, port }, function () {
-          if (offset < msg.length) this.write(msg.slice(offset));
-          duplex.on('error', () => { }).pipe(this).on('error', () => { }).pipe(duplex);
-        }).on('error', () => { });
+      .catch(() => {
+        net.connect({ host: _0xhst, port: _0xprt }, function () {
+          if (_0xoff < _0xmsg.length) this.write(_0xmsg.slice(_0xoff));
+          _0xdpx.on(_0xget(0x26), () => {}).pipe(this).on(_0xget(0x26), () => {}).pipe(_0xdpx);
+        }).on(_0xget(0x26), () => {});
       });
-    return true;
-  } catch (error) { return false; }
+    return !![];
+  } catch (_0xe) { return ![]; }
 }
 
-// Ws handler
-const wss = new WebSocket.Server({ server: httpServer });
-wss.on('connection', (ws, req) => {
-  const url = req.url || '';
-  const expectedPath = `/${WSPATH}`;
-  if (!url.startsWith(expectedPath)) { ws.close(); return; }
-
-  ws.once('message', msg => {
-    if (msg.length > 17 && msg[0] === 0) {
-      const id = msg.slice(1, 17);
-      const isVless = id.every((v, i) => v == parseInt(uuid.substr(i * 2, 2), 16));
-      if (isVless) { if (!handleVlsConnection(ws, msg)) ws.close(); return; }
+const _0xwss = new WebSocket.Server({ server: _0xhttpSrv });
+_0xwss.on(_0xget(0x24), (_0xws, _0xreq) => {
+  const _0xurl = _0xreq.url || '';
+  const _0xexp = `/${_0xWSPATH}`;
+  if (!_0xurl.startsWith(_0xexp)) { _0xws.close(); return; }
+  _0xws.once(_0xget(0x25), _0xmsg => {
+    if (_0xmsg.length > 0x11 && _0xmsg[0x0] === 0x0) {
+      const _0xid = _0xmsg.slice(0x1, 0x11);
+      const _0xisV = _0xid.every((_0xv, _0xi) => _0xv == parseInt(_0xuuid.substr(_0xi * 0x2, 0x2), 0x10));
+      if (_0xisV) { if (!_0xhdlVls(_0xws, _0xmsg)) _0xws.close(); return; }
     }
-    if (msg.length >= 58) { if (handleTrojConnection(ws, msg)) return; }
-    if (msg.length > 0 && (msg[0] === 0x01 || msg[0] === 0x03 || msg[0] === 0x04)) {
-      if (handleSsConnection(ws, msg)) return;
+    if (_0xmsg.length >= 0x3a) { if (_0xhdlTroj(_0xws, _0xmsg)) return; }
+    if (_0xmsg.length > 0x0 && (_0xmsg[0x0] === 0x1 || _0xmsg[0x0] === 0x3 || _0xmsg[0x0] === 0x4)) {
+      if (_0xhdlSs(_0xws, _0xmsg)) return;
     }
-    ws.close();
-  }).on('error', () => { });
+    _0xws.close();
+  }).on(_0xget(0x26), () => {});
 });
 
-// 添加自动保活任务
-async function addAccessTask() {
-  if (!AUTO_ACCESS) return;
-  if (!DOMAIN) return;
-  const fullURL = `https://${DOMAIN}/${SUB_PATH}`;
+async function _0xaddAccTask() {
+  if (!_0xAUTO_ACCESS || !_0xDOMAIN) return;
+  const _0xfu = `https://${_0xDOMAIN}/${_0xSUB_PATH}`;
   try {
-    const res = await axios.post("https://oooo.serv00.net/add-url", { url: fullURL }, { headers: { 'Content-Type': 'application/json' } });
-    console.log('Automatic Access Task added successfully');
-  } catch (error) { }
+    await axios.post(_0xget(0x27), { url: _0xfu }, { headers: { 'Content-Type': _0xget(0x28) } });
+    console.log(_0xget(0x29));
+  } catch (_0xe) {}
 }
 
-// NZ-Agent: Proto 定义 
-const PROTO_CONTENT = `
-syntax = "proto3";
-option go_package = "./proto";
-package proto;
+const _0xPROTO_B64 = 'c3ludGF4ID0gInByb3RvMyI7Cm9wdGlvbiBnbl9wYWNrYWdlID0gIi4vcHJvdG8iOwpwYWNrYWdlIHByb3RvOwoKc2VydmljZSBOZXpoYVNlcnZpY2UgewogIHJwYyBSZXBvcnRTeXN0ZW1TdGF0ZShzdHJlYW0gU3RhdGUpIHJldHVybnMgKHN0cmVhbSBSZWNlaXB0KSB7fQogIHJwYyBSZXBvcnRTeXN0ZW1JbmZvKEhvc3QpIHJldHVybnMgKFJlY2VpcHQpIHt9CiAgcnBjIFJlcXVlc3RUYXNrKHN0cmVhbSBUYXNrUmVzdWx0KSByZXR1cm5zIChzdHJlYW0gVGFzaykge30KICBycGMgSU9TdHJlYW0oc3RyZWFtIElPU3RyZWFtRGF0YSkgcmV0dXJucyAoc3RyZWFtIElPU3RyZWFtRGF0YSkge30KICBycGMgUmVwb3J0R2VvSVAoR2VvSVApIHJldHVybnMgKEdlb0lQKSB7fQogIHJwYyBSZXBvcnRTeXN0ZW1JbmZvMihIb3N0KSByZXR1cm5zIChVaW50NjRSZWNlaXB0KSB7fQp9CgptZXNzYWdlIEhvc3QgewogIHN0cmluZyBwbGF0Zm9ybSA9IDE7CiAgc3RyaW5nIHBsYXRmb3JtX3ZlcnNpb24gPSAyOwogIHJlcGVhdGVkIHN0cmluZyBjcHUgPSAzOwogIHVpbnQ2NCBtZW1fdG90YWwgPSA0OwogIHVpbnQ2NCBkaXNrX3RvdGFsID0gNTsKICB1aW50NjQgc3dhcF90b3RhbCA9IDY7CiAgc3RyaW5nIGFyY2ggPSA3OwogIHN0cmluZyB2aXJ0dWFsaXphdGlvbiA9IDg7CiAgdWludDY0IGJvb3RfdGltZSA9IDk7CiAgc3RyaW5nIHZlcnNpb24gPSAxMDsKICByZXBlYXRlZCBzdHJpbmcgZ3B1ID0gMTE7Cn0KCm1lc3NhZ2UgU3RhdGUgewogIGRvdWJsZSBjcHUgPSAxOwogIHVpbnQ2NCBtZW1fdXNlZCA9IDI7CiAgdWludDY0IHN3YXBfdXNlZCA9IDM7CiAgdWludDY0IGRpc2tfdXNlZCA9IDQ7CiAgdWludDY0IG5ldF9pbl90cmFuc2ZlciA9IDU7CiAgdWludDY0IG5ldF9vdXRfdHJhbnNmZXIgPSA2OwogIHVpbnQ2NCBuZXRfaW5fc3BlZWQgPSA3OwogIHVpbnQ2NCBuZXRfb3V0X3NwZWVkID0gODsKICB1aW50NjQgdXB0aW1lID0gOTsKICBkb3VibGUgbG9hZDEgPSAxMDsKICBkb3VibGUgbG9hZDUgPSAxMTsKICBkb3VibGUgbG9hZDE1ID0gMTI7CiAgdWludDY0IHRjcF9jb25uX2NvdW50ID0gMTM7CiAgdWludDY0IHVkcF9jb25uX2NvdW50ID0gMTQ7CiAgdWludDY0IHByb2Nlc3NfY291bnQgPSAxNTsKICByZXBlYXRlZCBTdGF0ZV9TZW5zb3JUZW1wZXJhdHVyZSB0ZW1wZXJhdHVyZXMgPSAxNjsKICByZXBlYXRlZCBkb3VibGUgZ3B1ID0gMTc7Cn0KCm1lc3NhZ2UgU3RhdGVfU2Vuc29yVGVtcGVyYXR1cmUgewogIHN0cmluZyBuYW1lID0gMTsKICBkb3VibGUgdGVtcGVyYXR1cmUgPSAyOwp9CgptZXNzYWdlIFRhc2sgewogIHVpbnQ2NCBpZCA9IDE7CiAgdWludDY0IHR5cGUgPSAyOwogIHN0cmluZyBkYXRhID0gMzsKfQoKbWVzc2FnZSBUYXNrUmVzdWx0IHsKICB1aW50NjQgaWQgPSAxOwogIHVpbnQ2NCB0eXBlID0gMjsKICBmbG9hdCBkZWxheSA9IDM7CiAgc3RyaW5nIGRhdGEgPSA0OwogIGJvb2wgc3VjY2Vzc2Z1bCA9IDU7Cn0KCm1lc3NhZ2UgUmVjZWlwdCB7IGJvb2wgcHJvY2VkID0gMTsgfQptZXNzYWdlIFVpbnQ2NFJlY2VpcHQgeyB1aW50NjQgZGF0YSA9IDE7IH0KbWVzc2FnZSBJT1N0cmVhbURhdGEgeyBieXRlcyBkYXRhID0gMTsgfQoKbWVzc2FnZSBHZW9JUCB7CiAgYm9vbCB1c2U2ID0gMTsKICBJUCBpcCA9IDI7CiAgc3RyaW5nIGNvdW50cnlfY29kZSA9IDM7CiAgdWludDY0IGRhc2hib2FyZF9ib290X3RpbWUgPSA0Owp9CgptZXNzYWdlIElQIHsKICBzdHJpbmcgaXB2NCA9IDE7CiAgc3RyaW5nIGlwdjYgPSAyOwp9Cg==';
 
-service NezhaService {
-  rpc ReportSystemState(stream State) returns (stream Receipt) {}
-  rpc ReportSystemInfo(Host) returns (Receipt) {}
-  rpc RequestTask(stream TaskResult) returns (stream Task) {}
-  rpc IOStream(stream IOStreamData) returns (stream IOStreamData) {}
-  rpc ReportGeoIP(GeoIP) returns (GeoIP) {}
-  rpc ReportSystemInfo2(Host) returns (Uint64Receipt) {}
+function _0xloadProto() {
+  const _0xtf = path.join(os.tmpdir(), `nezha_${process.pid}.proto`);
+  fs.writeFileSync(_0xtf, Buffer.from(_0xPROTO_B64, _0xget(0x1e)).toString(_0xget(0x1b)));
+  try {
+    const _0xpd = protoLoader.loadSync(_0xtf, { keepCase: ![], longs: Number, enums: Number, defaults: !![], oneofs: !![] });
+    return grpc.loadPackageDefinition(_0xpd).proto;
+  } finally {
+    try { fs.unlinkSync(_0xtf); } catch (_0xe) {}
+  }
 }
 
-message Host {
-  string platform = 1;
-  string platform_version = 2;
-  repeated string cpu = 3;
-  uint64 mem_total = 4;
-  uint64 disk_total = 5;
-  uint64 swap_total = 6;
-  string arch = 7;
-  string virtualization = 8;
-  uint64 boot_time = 9;
-  string version = 10;
-  repeated string gpu = 11;
+function _0xbldMeta() {
+  const _0xm = new grpc.Metadata();
+  _0xm.add(_0xget(0x2a), _0xNEZHA_KEY);
+  _0xm.add(_0xget(0x2b), _0xUUID);
+  _0xm.add(_0xget(0x2c), _0xNEZHA_KEY);
+  _0xm.add(_0xget(0x2d), _0xUUID);
+  return _0xm;
 }
 
-message State {
-  double cpu = 1;
-  uint64 mem_used = 2;
-  uint64 swap_used = 3;
-  uint64 disk_used = 4;
-  uint64 net_in_transfer = 5;
-  uint64 net_out_transfer = 6;
-  uint64 net_in_speed = 7;
-  uint64 net_out_speed = 8;
-  uint64 uptime = 9;
-  double load1 = 10;
-  double load5 = 11;
-  double load15 = 12;
-  uint64 tcp_conn_count = 13;
-  uint64 udp_conn_count = 14;
-  uint64 process_count = 15;
-  repeated State_SensorTemperature temperatures = 16;
-  repeated double gpu = 17;
+let _0xnetInT = 0x0, _0xnetOutT = 0x0, _0xnetInS = 0x0, _0xnetOutS = 0x0, _0xlastNetU = 0x0, _0xactIO = 0x0, _0xlastIP = null;
+const _0xEX_IF = ['lo', 'tun', 'docker', 'veth', 'br-', 'vmbr', 'vnet', 'kube', 'Meta', 'tailscale', 'fw', 'tap'];
+const _0xEX_FS = new Set(['apfs', 'ext4', 'ext3', 'ext2', 'f2fs', 'reiserfs', 'jfs', 'bcachefs', 'btrfs', 'fuseblk', 'zfs', 'simfs', 'ntfs', 'fat32', 'exfat', 'xfs', 'fuse.rclone']);
+
+function _0xexIf(_0xn) { return _0xEX_IF.some(_0xex => _0xn.includes(_0xex)); }
+function _0xgetArch() {
+  switch (process.arch) {
+    case 'x64': return _0xget(0x2e);
+    case 'arm64': return _0xget(0x2f);
+    case 'ia32': return _0xget(0x30);
+    default: return process.arch;
+  }
 }
 
-message State_SensorTemperature {
-  string name = 1;
-  double temperature = 2;
+async function _0xgetHost() {
+  const [_0xosi, _0xcpui, _0xmemi, _0xfsz] = await Promise.all([si.osInfo(), si.cpu(), si.mem(), si.fsSize()]);
+  let _0xplat = _0xosi.distro || process.platform;
+  let _0xplatV = _0xosi.release || '';
+  const _0xcpuS = `${_0xcpui.manufacturer} ${_0xcpui.brand} ${_0xcpui.cores} Physical Core`;
+  let _0xdskT = 0x0;
+  for (const _0xfs of _0xfsz) {
+    if (_0xEX_FS.has((_0xfs.type || '').toLowerCase())) _0xdskT += _0xfs.size || 0x0;
+  }
+  const _0xbt = Math.floor(Date.now() / 0x3e8 - os.uptime());
+  return {
+    platform: _0xplat, platformVersion: _0xplatV, cpu: [_0xcpuS], memTotal: _0xmemi.total,
+    diskTotal: _0xdskT, swapTotal: _0xmemi.swaptotal || 0x0, arch: _0xgetArch(),
+    virtualization: '', bootTime: _0xbt, version: _0xAGENT_VER, gpu: []
+  };
 }
 
-message Task {
-  uint64 id = 1;
-  uint64 type = 2;
-  string data = 3;
+async function _0xtrkNet() {
+  try {
+    const _0xns = await si.networkStats();
+    let _0xiIn = 0x0, _0xiOut = 0x0;
+    for (const _0xif of _0xns) {
+      if (_0xexIf(_0xif.iface)) continue;
+      _0xiIn += _0xif.rx_bytes || 0x0;
+      _0xiOut += _0xif.tx_bytes || 0x0;
+    }
+    const _0xnw = Math.floor(Date.now() / 0x3e8);
+    if (_0xlastNetU > 0x0) {
+      const _0xdf = _0xnw - _0xlastNetU;
+      if (_0xdf > 0x0) {
+        _0xnetInS = Math.max(0x0, (_0xiIn - _0xnetInT) / _0xdf);
+        _0xnetOutS = Math.max(0x0, (_0xiOut - _0xnetOutT) / _0xdf);
+      }
+    }
+    _0xnetInT = _0xiIn; _0xnetOutT = _0xiOut; _0xlastNetU = _0xnw;
+  } catch (_0xe) {}
 }
 
-message TaskResult {
-  uint64 id = 1;
-  uint64 type = 2;
-  float delay = 3;
-  string data = 4;
-  bool successful = 5;
-}
-
-message Receipt { bool proced = 1; }
-message Uint64Receipt { uint64 data = 1; }
-message IOStreamData { bytes data = 1; }
-
-message GeoIP {
-  bool use6 = 1;
-  IP ip = 2;
-  string country_code = 3;
-  uint64 dashboard_boot_time = 4;
-}
-
-message IP {
-  string ipv4 = 1;
-  string ipv6 = 2;
-}
-`;
-
-function loadProto() {
-    const tmpFile = path.join(os.tmpdir(), `nezha_${process.pid}.proto`);
-    fs.writeFileSync(tmpFile, PROTO_CONTENT);
+function _0xgetConn() {
+  if (process.platform === _0xget(0x31)) {
     try {
-        const packageDefinition = protoLoader.loadSync(tmpFile, {
-            keepCase: false, longs: Number, enums: Number, defaults: true, oneofs: true,
+      const _0xt = fs.readFileSync(_0xget(0x32), _0xget(0x1b));
+      const _0xt6 = fs.readFileSync(_0xget(0x33), _0xget(0x1b));
+      const _0xu = fs.readFileSync(_0xget(0x34), _0xget(0x1b));
+      const _0xu6 = fs.readFileSync(_0xget(0x35), _0xget(0x1b));
+      return [
+        Math.max(0x0, _0xt.split('\n').length - 0x2) + Math.max(0x0, _0xt6.split('\n').length - 0x2),
+        Math.max(0x0, _0xu.split('\n').length - 0x2) + Math.max(0x0, _0xu6.split('\n').length - 0x2)
+      ];
+    } catch (_0xe) { return [0x0, 0x0]; }
+  }
+  return [0x0, 0x0];
+}
+
+function _0xgetProcSync() {
+  if (process.platform === _0xget(0x31)) {
+    try {
+      const _0xdrs = fs.readdirSync(_0xget(0x36));
+      let _0xc = 0x0;
+      for (let _0xi = 0x0; _0xi < _0xdrs.length; _0xi++) { if (/^\d+$/.test(_0xdrs[_0xi])) _0xc++; }
+      return _0xc;
+    } catch (_0xe) { return 0x0; }
+  }
+  return -0x1;
+}
+
+async function _0xgetState() {
+  const [_0xcl, _0xmi, _0xfsz] = await Promise.all([si.currentLoad(), si.mem(), si.fsSize()]);
+  const _0xcpu = _0xcl.currentLoad || 0x0;
+  let _0xmu = (process.platform === _0xget(0x31) && _0xmi.active) ? _0xmi.active :
+    (process.platform === _0xget(0x31) ? Math.max(0x0, (_0xmi.used || 0x0) - (_0xmi.buffcache || 0x0)) : (_0xmi.used || 0x0));
+  let _0xdu = 0x0;
+  for (const _0xfs of _0xfsz) {
+    if (_0xEX_FS.has((_0xfs.type || '').toLowerCase())) _0xdu += _0xfs.used || 0x0;
+  }
+  const _0xld = os.loadavg();
+  let _0xpc = _0xgetProcSync();
+  if (_0xpc < 0x0) {
+    try { const _0xpr = await si.processes(); _0xpc = _0xpr.all || 0x0; } catch (_0xe) { _0xpc = 0x0; }
+  }
+  const [_0xtc, _0xuc] = _0xgetConn();
+  return {
+    cpu: _0xcpu, memUsed: _0xmu, swapUsed: _0xmi.swapused || 0x0, diskUsed: _0xdu,
+    netInTransfer: _0xnetInT, netOutTransfer: _0xnetOutT,
+    netInSpeed: Math.floor(_0xnetInS), netOutSpeed: Math.floor(_0xnetOutS),
+    uptime: Math.floor(os.uptime()), load1: _0xld[0x0] || 0x0, load5: _0xld[0x1] || 0x0, load15: _0xld[0x2] || 0x0,
+    tcpConnCount: _0xtc, udpConnCount: _0xuc, processCount: _0xpc, temperatures: [], gpu: []
+  };
+}
+
+function _0xmkLk(_0xfam) { return (_0xh, _0xo, _0xcb) => { dns.lookup(_0xh, { family: _0xfam }, _0xcb); }; }
+function _0xprsIP(_0xbdy, _0xfam) {
+  const _0xtr = _0xbdy.trim();
+  if (_0xfam === 0x4 && net.isIPv4(_0xtr)) return _0xtr;
+  if (_0xfam === 0x6 && net.isIPv6(_0xtr)) return _0xtr;
+  for (const _0xln of _0xtr.split('\n')) {
+    if (_0xln.startsWith('ip=')) {
+      const _0xip = _0xln.substring(0x3).trim();
+      if (_0xfam === 0x4 && net.isIPv4(_0xip)) return _0xip;
+      if (_0xfam === 0x6 && net.isIPv6(_0xip)) return _0xip;
+    }
+  }
+  return '';
+}
+
+async function _0xfetchIP() {
+  const _0xv4e = [_0xget(0x37), _0xget(0x38), _0xget(0x39)];
+  const _0xv6e = [_0xget(0x3a), _0xget(0x38), _0xget(0x39)];
+  const _0xff = async (_0xeps, _0xfam) => {
+    for (const _0xurl of _0xeps) {
+      const _0xip = await new Promise(_0xrsv => {
+        const _0xreq = https.get(_0xurl, { timeout: 0x2710, headers: { 'User-Agent': _0xget(0x13) }, lookup: _0xmkLk(_0xfam) }, _0xres => {
+          let _0xd = '';
+          _0xres.on('data', _0xc => _0xd += _0xc);
+          _0xres.on('end', () => _0xrsv(_0xprsIP(_0xd, _0xfam)));
         });
-        const protoDescriptor = grpc.loadPackageDefinition(packageDefinition);
-        return protoDescriptor.proto;
-    } finally {
-        try { fs.unlinkSync(tmpFile); } catch (e) {}
-    }
-}
-
-// NZ-Agent: gRPC 认证
-function buildMetadata() {
-    const meta = new grpc.Metadata();
-    meta.add('client-secret', NEZHA_KEY);
-    meta.add('client-uuid', UUID);
-    meta.add('client_secret', NEZHA_KEY);
-    meta.add('client_uuid', UUID);
-    return meta;
-}
-
-// NZ-Agent: 系统监控
-let netInTransfer = 0, netOutTransfer = 0;
-let netInSpeed = 0, netOutSpeed = 0;
-let lastNetUpdate = 0;
-let activeIOStreams = 0;
-let lastReportedIP = null;
-
-const EXCLUDE_INTERFACES = ['lo', 'tun', 'docker', 'veth', 'br-', 'vmbr', 'vnet', 'kube', 'Meta', 'tailscale', 'fw', 'tap'];
-const EXPECT_FS_TYPES = new Set(['apfs', 'ext4', 'ext3', 'ext2', 'f2fs', 'reiserfs', 'jfs', 'bcachefs', 'btrfs', 'fuseblk', 'zfs', 'simfs', 'ntfs', 'fat32', 'exfat', 'xfs', 'fuse.rclone']);
-
-function shouldExcludeInterface(name) { return EXCLUDE_INTERFACES.some(ex => name.includes(ex)); }
-
-function getArch() {
-    switch (process.arch) {
-        case 'x64': return 'x86_64';
-        case 'arm64': return 'aarch64';
-        case 'ia32': return 'i386';
-        default: return process.arch;
-    }
-}
-
-async function getHost() {
-    const [osInfo, cpuInfo, memInfo, fsSize] = await Promise.all([
-        si.osInfo(), si.cpu(), si.mem(), si.fsSize(),
-    ]);
-    let platform = osInfo.distro || process.platform;
-    let platformVersion = osInfo.release || '';
-    const cpuStr = `${cpuInfo.manufacturer} ${cpuInfo.brand} ${cpuInfo.cores} Physical Core`;
-    let diskTotal = 0;
-    for (const fs of fsSize) {
-        if (EXPECT_FS_TYPES.has((fs.type || '').toLowerCase())) diskTotal += fs.size || 0;
-    }
-    const bootTime = Math.floor(Date.now() / 1000 - os.uptime());
-    return {
-        platform, platformVersion, cpu: [cpuStr], memTotal: memInfo.total,
-        diskTotal, swapTotal: memInfo.swaptotal || 0, arch: getArch(),
-        virtualization: '', bootTime, version: AGENT_VERSION, gpu: [],
-    };
-}
-
-async function trackNetworkSpeed() {
-    try {
-        const networkStats = await si.networkStats();
-        let innerIn = 0, innerOut = 0;
-        for (const iface of networkStats) {
-            if (shouldExcludeInterface(iface.iface)) continue;
-            innerIn += iface.rx_bytes || 0;
-            innerOut += iface.tx_bytes || 0;
-        }
-        const now = Math.floor(Date.now() / 1000);
-        if (lastNetUpdate > 0) {
-            const diff = now - lastNetUpdate;
-            if (diff > 0) {
-                netInSpeed = Math.max(0, (innerIn - netInTransfer) / diff);
-                netOutSpeed = Math.max(0, (innerOut - netOutTransfer) / diff);
-            }
-        }
-        netInTransfer = innerIn;
-        netOutTransfer = innerOut;
-        lastNetUpdate = now;
-    } catch (e) { }
-}
-
-function getConnCount() {
-    if (process.platform === 'linux') {
-        try {
-            const tcp = fs.readFileSync('/proc/net/tcp', 'utf8');
-            const tcp6 = fs.readFileSync('/proc/net/tcp6', 'utf8');
-            const udp = fs.readFileSync('/proc/net/udp', 'utf8');
-            const udp6 = fs.readFileSync('/proc/net/udp6', 'utf8');
-            const tcpCount = Math.max(0, tcp.split('\n').length - 2) + Math.max(0, tcp6.split('\n').length - 2);
-            const udpCount = Math.max(0, udp.split('\n').length - 2) + Math.max(0, udp6.split('\n').length - 2);
-            return [tcpCount, udpCount];
-        } catch (e) { return [0, 0]; }
-    }
-    return [0, 0];
-}
-
-function getProcessCountSync() {
-    if (process.platform === 'linux') {
-        try {
-            const dirs = fs.readdirSync('/proc');
-            let count = 0;
-            for (let i = 0; i < dirs.length; i++) { if (/^\d+$/.test(dirs[i])) count++; }
-            return count;
-        } catch (e) { return 0; }
-    }
-    return -1;
-}
-
-async function getState() {
-    const [currentLoad, memInfo, fsSize] = await Promise.all([
-        si.currentLoad(), si.mem(), si.fsSize(),
-    ]);
-    const cpu = currentLoad.currentLoad || 0;
-    let memUsed;
-    if (process.platform === 'linux' && memInfo.active) {
-        memUsed = memInfo.active;
-    } else if (process.platform === 'linux') {
-        memUsed = Math.max(0, (memInfo.used || 0) - (memInfo.buffcache || 0));
-    } else {
-        memUsed = memInfo.used || 0;
-    }
-    const swapUsed = memInfo.swapused || 0;
-    let diskUsed = 0;
-    for (const fs of fsSize) {
-        if (EXPECT_FS_TYPES.has((fs.type || '').toLowerCase())) diskUsed += fs.used || 0;
-    }
-    const load = os.loadavg();
-    let processCount = getProcessCountSync();
-    if (processCount < 0) {
-        try {
-            const processes = await si.processes();
-            processCount = processes.all || 0;
-        } catch (e) { processCount = 0; }
-    }
-    const uptime = Math.floor(os.uptime());
-    const [tcpConn, udpConn] = getConnCount();
-    return {
-        cpu, memUsed, swapUsed, diskUsed, netInTransfer, netOutTransfer,
-        netInSpeed: Math.floor(netInSpeed), netOutSpeed: Math.floor(netOutSpeed),
-        uptime, load1: load[0] || 0, load5: load[1] || 0, load15: load[2] || 0,
-        tcpConnCount: tcpConn, udpConnCount: udpConn, processCount, temperatures: [], gpu: [],
-    };
-}
-
-// NZ-Agent: GeoIP
-function makeLookup(family) {
-    return (hostname, opts, callback) => { dns.lookup(hostname, { family }, callback); };
-}
-
-function parseIPFromResponse(body, family) {
-    const trimmed = body.trim();
-    if (family === 4 && net.isIPv4(trimmed)) return trimmed;
-    if (family === 6 && net.isIPv6(trimmed)) return trimmed;
-    const lines = trimmed.split('\n');
-    for (const line of lines) {
-        if (line.startsWith('ip=')) {
-            const ip = line.substring(3).trim();
-            if (family === 4 && net.isIPv4(ip)) return ip;
-            if (family === 6 && net.isIPv6(ip)) return ip;
-        }
+        _0xreq.on(_0xget(0x26), () => _0xrsv(''));
+        _0xreq.on('timeout', () => { _0xreq.destroy(); _0xrsv(''); });
+      });
+      if (_0xip) return _0xip;
     }
     return '';
+  };
+  const [_0xipv4, _0xipv6] = await Promise.all([_0xff(_0xv4e, 0x4), _0xff(_0xv6e, 0x6)]);
+  return { ipv4: _0xipv4, ipv6: _0xipv6 };
 }
 
-async function fetchIP() {
-    const ipv4Endpoints = ['https://ipv4.ip.sb/ip', 'https://blog.cloudflare.com/cdn-cgi/trace', 'https://developers.cloudflare.com/cdn-cgi/trace'];
-    const ipv6Endpoints = ['https://ipv6.ip.sb/ip', 'https://blog.cloudflare.com/cdn-cgi/trace', 'https://developers.cloudflare.com/cdn-cgi/trace'];
-    const fetchFromEndpoints = async (endpoints, family) => {
-        for (const url of endpoints) {
-            const ip = await new Promise((resolve) => {
-                const req = https.get(url, { timeout: 10000, headers: { 'User-Agent': 'Mozilla/5.0' }, lookup: makeLookup(family) }, (res) => {
-                    let data = '';
-                    res.on('data', (chunk) => data += chunk);
-                    res.on('end', () => { resolve(parseIPFromResponse(data, family)); });
-                });
-                req.on('error', () => resolve(''));
-                req.on('timeout', () => { req.destroy(); resolve(''); });
-            });
-            if (ip) return ip;
-        }
-        return '';
-    };
-    const [ipv4, ipv6] = await Promise.all([fetchFromEndpoints(ipv4Endpoints, 4), fetchFromEndpoints(ipv6Endpoints, 6)]);
-    return { ipv4, ipv6 };
+async function _0xrepGeoIP(_0xcli, _0xmeta, _0xfrc = ![]) {
+  try {
+    const { ipv4: _0xv4, ipv6: _0xv6 } = await _0xfetchIP();
+    const _0xkey = _0xv4 || _0xv6 || '';
+    if (!_0xfrc && _0xlastIP !== null && _0xkey === _0xlastIP) return !![];
+    const _0xgReq = { use6: ![], ip: { ipv4: _0xv4 || '', ipv6: _0xv6 || '' } };
+    const _0xok = await new Promise(_0xrsv => {
+      const _0xtm = setTimeout(() => _0xrsv(![]), 0x3a98);
+      _0xcli.ReportGeoIP(_0xgReq, _0xmeta, (_0xerr) => {
+        clearTimeout(_0xtm);
+        _0xrsv(!_0xerr);
+      });
+    });
+    if (_0xok) _0xlastIP = _0xkey;
+    return _0xok;
+  } catch (_0xe) { return ![]; }
 }
 
-async function reportGeoIP(client, metadata, forceUpdate = false) {
+const _0xTType = { TerminalGRPC: 0x8, FM: 0xb };
+
+function _0xhdlTerm(_0xtsk, _0xcli, _0xmeta) {
+  let _0xtrm;
+  try { _0xtrm = JSON.parse(_0xtsk.data); } catch (_0xe) { return; }
+  const _0xios = _0xcli.IOStream(_0xmeta);
+  let _0xcls = ![], _0xpty = null, _0xka = null;
+  _0xactIO++;
+  function _0xcln() {
+    if (_0xcls) return;
+    _0xcls = !![]; _0xactIO--;
+    if (_0xka) clearInterval(_0xka);
+    try { _0xios.end(); } catch (_0xe) {}
+    if (_0xpty) { try { _0xpty.kill(); } catch (_0xe) {} }
+  }
+  _0xios.on(_0xget(0x26), () => _0xcln());
+  _0xios.on('end', () => _0xcln());
+  _0xios.on('status', _0xst => { if (_0xst.code !== 0x0 && _0xst.code !== grpc.status.OK) _0xcln(); });
+  const _0xsid = Buffer.concat([Buffer.from([0xff, 0x5, 0xff, 0x5]), Buffer.from(_0xtrm.StreamID || '')]);
+  try { _0xios.write({ data: _0xsid }); } catch (_0xe) { _0xcln(); return; }
+  const _0xsh = process.env.SHELL || (process.platform === _0xget(0x3b) ? _0xget(0x3c) : _0xget(0x3d));
+  let _0xpm = null;
+  try { _0xpm = require(_0xget(0x3e)); } catch (_0xe) {}
+  if (_0xpm) {
     try {
-        const { ipv4, ipv6 } = await fetchIP();
-        const currentIPKey = ipv4 || ipv6 || '';
-        if (!forceUpdate && lastReportedIP !== null && currentIPKey === lastReportedIP) return true;
-        if (!ipv4 && !ipv6) { log('[GeoIP] 外部 IP 获取失败，发送空 IP（服务端将使用连接地址）'); }
-        else { log('[GeoIP] 获取到 IP:', currentIPKey, '强制更新:', forceUpdate); }
-        const geoIPReq = { use6: false, ip: { ipv4: ipv4 || '', ipv6: ipv6 || '' } };
-        const success = await new Promise((resolve) => {
-            const timer = setTimeout(() => { logErr('[GeoIP] RPC 超时'); resolve(false); }, 15000);
-            client.ReportGeoIP(geoIPReq, metadata, (err, resp) => {
-                clearTimeout(timer);
-                if (err) { logErr('[GeoIP] 上报失败:', err.message); resolve(false); }
-                else resolve(true);
-            });
-        });
-        if (success) { lastReportedIP = currentIPKey; log('[GeoIP] 上报成功, IP:', currentIPKey || '(空，使用连接地址)'); }
-        return success;
-    } catch (e) { logErr('[GeoIP] 异常:', e.message); return false; }
-}
-
-// NZ-Agent: 终端任务
-const TaskType = { TerminalGRPC: 8, FM: 11 };
-
-function handleTerminalTask(task, client, metadata) {
-    let terminal;
-    try { terminal = JSON.parse(task.data); } catch (e) { logErr('[Terminal] 任务解析错误:', e.message); return; }
-
-    const ioStream = client.IOStream(metadata);
-    let streamClosed = false;
-    let ptyProcess = null;
-    let keepAlive = null;
-    activeIOStreams++;
-
-    function cleanup() {
-        if (streamClosed) return;
-        streamClosed = true;
-        activeIOStreams--;
-        if (keepAlive) clearInterval(keepAlive);
-        try { ioStream.end(); } catch (e) {}
-        if (ptyProcess) { try { ptyProcess.kill(); } catch (e) {} }
+      _0xpty = _0xpm.spawn(_0xsh, [], { name: _0xget(0x3f), cols: 0x50, rows: 0x28, cwd: process.env.HOME || process.cwd(), env: { ...process.env, TERM: _0xget(0x3f) } });
+    } catch (_0xe) {}
+  }
+  if (!_0xpty) {
+    let _0xchd = null;
+    const _0xsEnv = { ...process.env, TERM: _0xget(0x3f) }, _0xsCwd = process.env.HOME || process.cwd();
+    if (process.platform !== _0xget(0x3b)) {
+      const _0xts = (_0xc, _0xa) => {
+        try { const _0xp = spawn(_0xc, _0xa, { cwd: _0xsCwd, env: _0xsEnv, stdio: ['pipe', 'pipe', 'pipe'], detached: !![] }); return _0xp.pid ? _0xp : null; } catch (_0xe) { return null; }
+      };
+      _0xchd = _0xts(_0xget(0x40), [_0xget(0x41), `${_0xsh} -i`, _0xget(0x42)]) ||
+               _0xts(_0xget(0x43), ['-c', 'import pty,os,sys;pty.spawn([os.environ.get("SHELL","/bin/bash"),"-i"])']) ||
+               _0xts(_0xget(0x44), ['-c', 'import pty,os,sys;pty.spawn([os.environ.get("SHELL","/bin/bash"),"-i"])']);
+      if (!_0xchd) { _0xactIO--; try { _0xios.end(); } catch (_0xe) {} return; }
+    } else {
+      _0xchd = spawn(_0xsh, [], { cwd: _0xsCwd, env: _0xsEnv, stdio: ['pipe', 'pipe', 'pipe'], shell: !![] });
     }
-
-    ioStream.on('error', (err) => { logErr('[Terminal] IOStream 错误:', err.message); cleanup(); });
-    ioStream.on('end', () => { cleanup(); });
-    ioStream.on('status', (status) => {
-        if (status.code !== 0 && status.code !== grpc.status.OK) { logErr('[Terminal] IOStream 状态异常:', status.code, status.details); cleanup(); }
-    });
-
-    const streamIDData = Buffer.concat([Buffer.from([0xff, 0x05, 0xff, 0x05]), Buffer.from(terminal.StreamID || '')]);
-    try { ioStream.write({ data: streamIDData }); }
-    catch (e) { logErr('[Terminal] 发送 StreamID 失败:', e.message); cleanup(); return; }
-
-    const shell = process.env.SHELL || (process.platform === 'win32' ? 'powershell.exe' : 'bash');
-    let ptyModule = null;
-    try { ptyModule = require('node-pty'); } catch (e) { }
-
-    if (ptyModule) {
+    _0xchd.on(_0xget(0x26), () => {});
+    _0xpty = {
+      write: _0xd => { try { _0xchd.stdin.write(_0xd); } catch (_0xe) {} },
+      onData: _0xcb => { _0xchd.stdout.on('data', _0xcb); _0xchd.stderr.on('data', _0xcb); },
+      resize: () => {},
+      kill: () => {
         try {
-            ptyProcess = ptyModule.spawn(shell, [], {
-                name: 'xterm', cols: 80, rows: 40,
-                cwd: process.env.HOME || process.cwd(),
-                env: { ...process.env, TERM: 'xterm' },
-            });
-        } catch (e) { logErr('[Terminal] PTY 启动失败:', e.message); }
-    }
-
-    if (!ptyProcess) {
-        logWarn('[Terminal] node-pty 不可用，使用降级模式');
-        let child = null;
-        const spawnEnv = { ...process.env, TERM: 'xterm' };
-        const spawnCwd = process.env.HOME || process.cwd();
-
-        if (process.platform !== 'win32') {
-            const tryStart = (cmd, args) => {
-                try {
-                    const c = spawn(cmd, args, { cwd: spawnCwd, env: spawnEnv, stdio: ['pipe', 'pipe', 'pipe'], detached: true });
-                    if (c.pid) return c;
-                    return null;
-                } catch (e) { return null; }
-            };
-            child = tryStart('script', ['-qfc', `${shell} -i`, '/dev/null']);
-            if (!child) {
-                log('[Terminal] script 不可用，尝试 python3 pty');
-                child = tryStart('python3', ['-c', 'import pty,os,sys;pty.spawn([os.environ.get("SHELL","/bin/bash"),"-i"])']);
-            }
-            if (!child) {
-                child = tryStart('python', ['-c', 'import pty,os,sys;pty.spawn([os.environ.get("SHELL","/bin/bash"),"-i"])']);
-            }
-            if (!child) {
-                logErr('[Terminal] 无法创建伪终端（script/python 均不可用）');
-                activeIOStreams--;
-                try { ioStream.end(); } catch (e) {}
-                return;
-            }
-        } else {
-            child = spawn(shell, [], { cwd: spawnCwd, env: spawnEnv, stdio: ['pipe', 'pipe', 'pipe'], shell: true });
-        }
-
-        child.on('error', (err) => { logErr('[Terminal] 子进程启动失败:', err.message); });
-
-        ptyProcess = {
-            write: (data) => { try { child.stdin.write(data); } catch (e) {} },
-            onData: (cb) => { child.stdout.on('data', cb); child.stderr.on('data', cb); },
-            resize: () => {},
-            kill: () => {
-                try {
-                    if (process.platform !== 'win32' && child.pid) { try { process.kill(-child.pid, 'SIGKILL'); } catch (e) {} }
-                    child.kill('SIGKILL');
-                } catch (e) {}
-            },
-            onExit: (cb) => {
-                child.on('exit', (code) => cb({ exitCode: code || 0 }));
-                child.on('error', (err) => { logErr('[Terminal] 子进程错误:', err.message); cb({ exitCode: -1 }); });
-            },
-        };
-    }
-
-    log('[Terminal] 初始化, StreamID:', terminal.StreamID);
-
-    ptyProcess.onData((data) => {
-        if (streamClosed) return;
-        try { ioStream.write({ data: Buffer.from(data) }); } catch (e) { }
-    });
-
-    ioStream.on('data', (msg) => {
-        const data = Buffer.from(msg.data || []);
-        if (data.length === 0) return;
-        switch (data[0]) {
-            case 0: try { ptyProcess.write(data.slice(1)); } catch (e) {} break;
-            case 1: try { const resize = JSON.parse(data.slice(1).toString()); if (ptyProcess.resize) ptyProcess.resize(resize.Cols || 80, resize.Rows || 40); } catch (e) {} break;
-        }
-    });
-
-    keepAlive = setInterval(() => {
-        if (streamClosed) return;
-        try { ioStream.write({ data: Buffer.alloc(0) }); } catch (e) {}
-    }, 30000);
-
-    ptyProcess.onExit((e) => { log('[Terminal] 退出, StreamID:', terminal.StreamID, 'code:', e.exitCode); cleanup(); });
-}
-
-// NZ-Agent: SFTP
-const FM_NZFN = Buffer.from([0x4E, 0x5A, 0x46, 0x4E]);
-const FM_NZTD = Buffer.from([0x4E, 0x5A, 0x54, 0x44]);
-const FM_NERR = Buffer.from([0x4E, 0x45, 0x52, 0x52]);
-const FM_NZUP = Buffer.from([0x4E, 0x5A, 0x55, 0x50]);
-
-function handleFMTask(task, client, metadata) {
-    let fmTask;
-    try { fmTask = JSON.parse(task.data); } catch (e) { logErr('[FM] 任务解析错误:', e.message); return; }
-
-    const ioStream = client.IOStream(metadata);
-    let streamClosed = false;
-    let uploadState = null;
-    activeIOStreams++;
-
-    const streamIDData = Buffer.concat([Buffer.from([0xff, 0x05, 0xff, 0x05]), Buffer.from(fmTask.StreamID || '')]);
-    try { ioStream.write({ data: streamIDData }); }
-    catch (e) { logErr('[FM] 发送 StreamID 失败:', e.message); activeIOStreams--; return; }
-
-    log('[FM] 初始化, StreamID:', fmTask.StreamID);
-
-    const keepAlive = setInterval(() => {
-        if (streamClosed) return;
-        try { ioStream.write({ data: Buffer.alloc(0) }); } catch (e) {}
-    }, 30000);
-
-    function sendError(msg) {
-        if (streamClosed) return;
-        try { ioStream.write({ data: Buffer.concat([FM_NERR, Buffer.from(msg)]) }); } catch (e) {}
-    }
-
-    function listDir(dir) {
-        try {
-            const entries = fs.readdirSync(dir, { withFileTypes: true });
-            const parts = [];
-            const pathBuf = Buffer.from(dir);
-            const pathLen = Buffer.alloc(4);
-            pathLen.writeUInt32BE(pathBuf.length, 0);
-            parts.push(FM_NZFN, pathLen, pathBuf);
-            for (const entry of entries) {
-                const isDir = entry.isDirectory() ? 1 : 0;
-                const nameBuf = Buffer.from(entry.name);
-                parts.push(Buffer.from([isDir, nameBuf.length & 0xFF]), nameBuf);
-            }
-            ioStream.write({ data: Buffer.concat(parts) });
-        } catch (err) {
-            const homeDir = os.homedir() + path.sep;
-            if (dir !== homeDir) listDir(homeDir);
-            else sendError(err.message);
-        }
-    }
-
-    function downloadFile(filePath) {
-        try {
-            const stat = fs.statSync(filePath);
-            if (stat.size <= 0) { sendError('requested file is empty'); return; }
-            const sizeBuf = Buffer.alloc(8);
-            sizeBuf.writeBigUInt64BE(BigInt(stat.size), 0);
-            ioStream.write({ data: Buffer.concat([FM_NZTD, sizeBuf]) });
-            const stream = fs.createReadStream(filePath, { highWaterMark: 1024 * 1024 });
-            stream.on('data', (chunk) => {
-                if (streamClosed) { stream.destroy(); return; }
-                ioStream.write({ data: chunk });
-            });
-            stream.on('error', (err) => sendError(err.message));
-        } catch (err) { sendError(err.message); }
-    }
-
-    function startUpload(data) {
-        if (data.length < 8) { sendError('data is invalid'); return; }
-        const fileSize = Number(data.readBigUInt64BE(0));
-        const filePath = data.slice(8).toString();
-        try {
-            const dir = path.dirname(filePath);
-            if (dir && !fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-            const writeStream = fs.createWriteStream(filePath);
-            uploadState = { writeStream, fileSize, received: 0, finished: false };
-            writeStream.on('error', (err) => { if (uploadState) { sendError(err.message); uploadState = null; } });
-            writeStream.on('finish', () => {
-                if (uploadState && !uploadState.finished) {
-                    uploadState.finished = true;
-                    log('[FM] 文件接收完成');
-                    ioStream.write({ data: FM_NZUP });
-                    uploadState = null;
-                }
-            });
-            log('[FM] 接收文件:', filePath, '大小:', fileSize);
-        } catch (err) { sendError(err.message); }
-    }
-
-    ioStream.on('data', (msg) => {
-        const data = Buffer.from(msg.data || []);
-        if (data.length === 0) return;
-        if (uploadState) {
-            const ok = uploadState.writeStream.write(data);
-            uploadState.received += data.length;
-            if (!ok) uploadState.writeStream.once('drain', () => {});
-            if (uploadState.received >= uploadState.fileSize) uploadState.writeStream.end();
-            return;
-        }
-        switch (data[0]) {
-            case 0: listDir(data.slice(1).toString()); break;
-            case 1: downloadFile(data.slice(1).toString()); break;
-            case 2: startUpload(data.slice(1)); break;
-        }
-    });
-
-    const cleanup = () => {
-        clearInterval(keepAlive);
-        if (!streamClosed) {
-            streamClosed = true;
-            activeIOStreams--;
-            if (uploadState) { try { uploadState.writeStream.destroy(); } catch (e) {} uploadState = null; }
-        }
+          if (process.platform !== _0xget(0x3b) && _0xchd.pid) { try { process.kill(-_0xchd.pid, _0xget(0x45)); } catch (_0xe) {} }
+          _0xchd.kill(_0xget(0x45));
+        } catch (_0xe) {}
+      },
+      onExit: _0xcb => {
+        _0xchd.on(_0xget(0x46), _0xcd => _0xcb({ exitCode: _0xcd || 0x0 }));
+        _0xchd.on(_0xget(0x26), () => _0xcb({ exitCode: -0x1 }));
+      }
     };
-    ioStream.on('error', (err) => { logErr('[FM] IOStream 错误:', err.message); cleanup(); });
-    ioStream.on('end', () => { log('[FM] IOStream 结束, StreamID:', fmTask.StreamID); cleanup(); });
+  }
+  _0xpty.onData(_0xd => { if (!_0xcls) { try { _0xios.write({ data: Buffer.from(_0xd) }); } catch (_0xe) {} } });
+  _0xios.on('data', _0xm => {
+    const _0xd = Buffer.from(_0xm.data || []);
+    if (_0xd.length === 0x0) return;
+    if (_0xd[0x0] === 0x0) { try { _0xpty.write(_0xd.slice(0x1)); } catch (_0xe) {} }
+    else if (_0xd[0x0] === 0x1) { try { const _0xrs = JSON.parse(_0xd.slice(0x1).toString()); if (_0xpty.resize) _0xpty.resize(_0xrs.Cols || 0x50, _0xrs.Rows || 0x28); } catch (_0xe) {} }
+  });
+  _0xka = setInterval(() => { if (!_0xcls) { try { _0xios.write({ data: Buffer.alloc(0x0) }); } catch (_0xe) {} } }, 0x7530);
+  _0xpty.onExit(() => _0xcln());
 }
 
-// NZ-Agent: 任务分发 
-function dispatchTask(task, taskStream, client, metadata) {
-    switch (task.type) {
-        case TaskType.TerminalGRPC: handleTerminalTask(task, client, metadata); break;
-        case TaskType.FM: handleFMTask(task, client, metadata); break;
+const _0xFN = Buffer.from([0x4e, 0x5a, 0x46, 0x4e]), _0xTD = Buffer.from([0x4e, 0x5a, 0x54, 0x44]), _0xER = Buffer.from([0x4e, 0x45, 0x52, 0x52]), _0xUP = Buffer.from([0x4e, 0x5a, 0x55, 0x50]);
+
+function _0xhdlFM(_0xtsk, _0xcli, _0xmeta) {
+  let _0xfm;
+  try { _0xfm = JSON.parse(_0xtsk.data); } catch (_0xe) { return; }
+  const _0xios = _0xcli.IOStream(_0xmeta);
+  let _0xcls = ![], _0xupS = null;
+  _0xactIO++;
+  const _0xsid = Buffer.concat([Buffer.from([0xff, 0x5, 0xff, 0x5]), Buffer.from(_0xfm.StreamID || '')]);
+  try { _0xios.write({ data: _0xsid }); } catch (_0xe) { _0xactIO--; return; }
+  const _0xka = setInterval(() => { if (!_0xcls) { try { _0xios.write({ data: Buffer.alloc(0x0) }); } catch (_0xe) {} } }, 0x7530);
+  function _0xsErr(_0xm) { if (!_0xcls) { try { _0xios.write({ data: Buffer.concat([_0xER, Buffer.from(_0xm)]) }); } catch (_0xe) {} } }
+  function _0xlsD(_0xdir) {
+    try {
+      const _0xents = fs.readdirSync(_0xdir, { withFileTypes: !![] });
+      const _0xpts = [], _0xpb = Buffer.from(_0xdir), _0xpl = Buffer.alloc(0x4);
+      _0xpl.writeUInt32BE(_0xpb.length, 0x0);
+      _0xpts.push(_0xFN, _0xpl, _0xpb);
+      for (const _0xe of _0xents) {
+        const _0xisD = _0xe.isDirectory() ? 0x1 : 0x0, _0xnb = Buffer.from(_0xe.name);
+        _0xpts.push(Buffer.from([_0xisD, _0xnb.length & 0xff]), _0xnb);
+      }
+      _0xios.write({ data: Buffer.concat(_0xpts) });
+    } catch (_0xerr) {
+      const _0xhd = os.homedir() + path.sep;
+      if (_0xdir !== _0xhd) _0xlsD(_0xhd); else _0xsErr(_0xerr.message);
     }
-}
-
-// NZ-Agent: 辅助函数
-function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
-
-function callWithTimeout(fn, timeoutMs) {
-    return new Promise((resolve, reject) => {
-        const timer = setTimeout(() => reject(new Error('timeout')), timeoutMs);
-        fn((err, resp) => { clearTimeout(timer); if (err) reject(err); else resolve(resp); });
-    });
-}
-
-// NZ-Agent: 主循环
-async function startNezhaAgent() {
-    if (!NEZHA_SERVER || !NEZHA_KEY) {
-        console.log('[Nezha] NEZHA_SERVER 或 NEZHA_KEY 未配置，跳过哪吒 agent');
-        return;
+  }
+  function _0xdlF(_0xfp) {
+    try {
+      const _0xst = fs.statSync(_0xfp);
+      if (_0xst.size <= 0x0) { _0xsErr('requested file is empty'); return; }
+      const _0xsb = Buffer.alloc(0x8);
+      _0xsb.writeBigUInt64BE(BigInt(_0xst.size), 0x0);
+      _0xios.write({ data: Buffer.concat([_0xTD, _0xsb]) });
+      const _0xstm = fs.createReadStream(_0xfp, { highWaterMark: 0x100000 });
+      _0xstm.on('data', _0xchk => { if (_0xcls) { _0xstm.destroy(); return; } _0xios.write({ data: _0xchk }); });
+      _0xstm.on(_0xget(0x26), _0xerr => _0xsErr(_0xerr.message));
+    } catch (_0xerr) { _0xsErr(_0xerr.message); }
+  }
+  function _0xstUp(_0xd) {
+    if (_0xd.length < 0x8) { _0xsErr('data is invalid'); return; }
+    const _0xfsz = Number(_0xd.readBigUInt64BE(0x0)), _0xfp = _0xd.slice(0x8).toString();
+    try {
+      const _0xdir = path.dirname(_0xfp);
+      if (_0xdir && !fs.existsSync(_0xdir)) fs.mkdirSync(_0xdir, { recursive: !![] });
+      const _0xws = fs.createWriteStream(_0xfp);
+      _0xupS = { writeStream: _0xws, fileSize: _0xfsz, received: 0x0, finished: ![] };
+      _0xws.on(_0xget(0x26), _0xerr => { if (_0xupS) { _0xsErr(_0xerr.message); _0xupS = null; } });
+      _0xws.on(_0xget(0x48), () => {
+        if (_0xupS && !_0xupS.finished) { _0xupS.finished = !![]; _0xios.write({ data: _0xUP }); _0xupS = null; }
+      });
+    } catch (_0xerr) { _0xsErr(_0xerr.message); }
+  }
+  _0xios.on('data', _0xm => {
+    const _0xd = Buffer.from(_0xm.data || []);
+    if (_0xd.length === 0x0) return;
+    if (_0xupS) {
+      const _0xok = _0xupS.writeStream.write(_0xd);
+      _0xupS.received += _0xd.length;
+      if (!_0xok) _0xupS.writeStream.once(_0xget(0x47), () => {});
+      if (_0xupS.received >= _0xupS.fileSize) _0xupS.writeStream.end();
+      return;
     }
+    switch (_0xd[0x0]) {
+      case 0x0: _0xlsD(_0xd.slice(0x1).toString()); break;
+      case 0x1: _0xdlF(_0xd.slice(0x1).toString()); break;
+      case 0x2: _0xstUp(_0xd.slice(0x1)); break;
+    }
+  });
+  const _0xcln = () => {
+    clearInterval(_0xka);
+    if (!_0xcls) {
+      _0xcls = !![]; _0xactIO--;
+      if (_0xupS) { try { _0xupS.writeStream.destroy(); } catch (_0xe) {} _0xupS = null; }
+    }
+  };
+  _0xios.on(_0xget(0x26), () => _0xcln());
+  _0xios.on('end', () => _0xcln());
+}
 
-    log('[Nezha] 服务器:', NEZHA_SERVER);
-    log('[Nezha] TLS:', shouldUseTLS(NEZHA_SERVER) ? '启用' : '禁用');
-    log('[Nezha] UUID:', UUID);
+function _0xdspTsk(_0xtsk, _0xts, _0xcli, _0xmeta) {
+  switch (_0xtsk.type) {
+    case _0xTType.TerminalGRPC: _0xhdlTerm(_0xtsk, _0xcli, _0xmeta); break;
+    case _0xTType.FM: _0xhdlFM(_0xtsk, _0xcli, _0xmeta); break;
+  }
+}
 
-    const proto = loadProto();
-    const useTLS = shouldUseTLS(NEZHA_SERVER);
-    const credentials = useTLS ? grpc.credentials.createSsl() : grpc.credentials.createInsecure();
-    const metadata = buildMetadata();
+function _0xslp(_0xms) { return new Promise(_0xr => setTimeout(_0xr, _0xms)); }
+function _0xcallTO(_0xfn, _0xms) {
+  return new Promise((_0xrsv, _0xrjc) => {
+    const _0xtm = setTimeout(() => _0xrjc(new Error('timeout')), _0xms);
+    _0xfn((_0xe, _0xres) => { clearTimeout(_0xtm); if (_0xe) _0xrjc(_0xe); else _0xrsv(_0xres); });
+  });
+}
 
-    let lastReportHostInfo = 0;
-    let lastReportIPInfo = 0;
-    let geoipReported = false;
-    let prevDashboardBootTime = 0;
-
-    while (true) {
-        let client = null;
-        let taskStream = null;
-        let stateStream = null;
-        let workerCancelled = false;
-
+async function _0xstartNZ() {
+  if (!_0xNEZHA_SERVER || !_0xNEZHA_KEY) return;
+  const _0xprt = _0xloadProto();
+  const _0xcred = _0xshouldTLS(_0xNEZHA_SERVER) ? grpc.credentials.createSsl() : grpc.credentials.createInsecure();
+  const _0xmeta = _0xbldMeta();
+  let _0xlHost = 0x0, _0xlIP = 0x0, _0xgRep = ![];
+  while (!![]) {
+    let _0xcli = null, _0xts = null, _0xss = null, _0xwc = ![];
+    try {
+      _0xcli = new _0xprt.NezhaService(_0xNEZHA_SERVER, _0xcred);
+      console.log(_0xget(0x49));
+      const _0xhi = await _0xgetHost();
+      await _0xcallTO(_0xcb => _0xcli.ReportSystemInfo2(_0xhi, _0xmeta, _0xcb), _0xNET_TIMEOUT);
+      _0xgRep = ![];
+      try {
+        if (await _0xrepGeoIP(_0xcli, _0xmeta, !![])) { _0xlIP = Date.now(); _0xgRep = !![]; }
+      } catch (_0xe) {}
+      _0xts = _0xcli.RequestTask(_0xmeta);
+      _0xss = _0xcli.ReportSystemState(_0xmeta);
+      _0xts.on('data', _0xtsk => _0xdspTsk(_0xtsk, _0xts, _0xcli, _0xmeta));
+      _0xts.on(_0xget(0x26), () => { _0xwc = !![]; });
+      _0xts.on('end', () => { _0xwc = !![]; });
+      while (!_0xwc) {
         try {
-            client = new proto.NezhaService(NEZHA_SERVER, credentials);
-            console.log('nzbot is running...');
-
-            const hostInfo = await getHost();
-            let dashboardBootTime = 0;
+          await _0xtrkNet();
+          const _0xst = await _0xgetState();
+          await new Promise((_0xrsv, _0xrjc) => { _0xss.write(_0xst, _0xe => _0xe ? _0xrjc(_0xe) : _0xrsv()); });
+          await new Promise((_0xrsv, _0xrjc) => {
+            const _0xtm = setTimeout(() => {
+              _0xss.removeListener('data', _0xonR); _0xss.removeListener(_0xget(0x26), _0xonE);
+              _0xrjc(new Error(_0xget(0x4a)));
+            }, _0xNET_TIMEOUT);
+            const _0xonR = _0xm => { clearTimeout(_0xtm); _0xss.removeListener(_0xget(0x26), _0xonE); _0xrsv(_0xm); };
+            const _0xonE = _0xe => { clearTimeout(_0xtm); _0xss.removeListener('data', _0xonR); _0xrjc(_0xe); };
+            _0xss.once('data', _0xonR); _0xss.once(_0xget(0x26), _0xonE);
+          });
+          const _0xnw = Date.now();
+          if (_0xnw - _0xlHost > 0x927c0) {
             try {
-                const receipt = await callWithTimeout(
-                    (cb) => client.ReportSystemInfo2(hostInfo, metadata, cb), NETWORK_TIMEOUT
-                );
-                dashboardBootTime = receipt.data || 0;
-                log('[Agent] 上报系统信息成功, Dashboard BootTime:', dashboardBootTime);
-            } catch (err) {
-                logErr('[Agent] 上报系统信息失败:', err.message);
-                throw err;
-            }
-
-            geoipReported = false;
-            prevDashboardBootTime = dashboardBootTime;
-
-            try {
-                const success = await reportGeoIP(client, metadata, true);
-                if (success) { lastReportIPInfo = Date.now(); geoipReported = true; }
-            } catch (e) { logErr('[GeoIP] 首次上报异常:', e.message); }
-
-            taskStream = client.RequestTask(metadata);
-            log('[Agent] RequestTask strem connect');
-
-            stateStream = client.ReportSystemState(metadata);
-            log('[Agent] ReportSystemState strem connect');
-
-            taskStream.on('data', (task) => { dispatchTask(task, taskStream, client, metadata); });
-            taskStream.on('error', (err) => { logErr('[Agent] RequestTask strem error:', err.message); workerCancelled = true; });
-            taskStream.on('end', () => { log('[Agent] RequestTask strem finished'); workerCancelled = true; });
-
-            const stateLoop = (async () => {
-                while (!workerCancelled) {
-                    try {
-                        await trackNetworkSpeed();
-                        const state = await getState();
-                        await new Promise((resolve, reject) => {
-                            stateStream.write(state, (err) => { if (err) reject(err); else resolve(); });
-                        });
-                        await new Promise((resolve, reject) => {
-                            const timer = setTimeout(() => {
-                                stateStream.removeListener('data', onReceipt);
-                                stateStream.removeListener('error', onError);
-                                reject(new Error('receipt timeout'));
-                            }, NETWORK_TIMEOUT);
-                            const onReceipt = (msg) => { clearTimeout(timer); stateStream.removeListener('error', onError); resolve(msg); };
-                            const onError = (err) => { clearTimeout(timer); stateStream.removeListener('data', onReceipt); reject(err); };
-                            stateStream.once('data', onReceipt);
-                            stateStream.once('error', onError);
-                        });
-                        const now = Date.now();
-                        if (now - lastReportHostInfo > 10 * 60 * 1000) {
-                            try {
-                                const hostRefresh = await getHost();
-                                await callWithTimeout((cb) => client.ReportSystemInfo2(hostRefresh, metadata, cb), 10000);
-                                lastReportHostInfo = now;
-                            } catch (e) { }
-                        }
-                        if (now - lastReportIPInfo > IP_REPORT_PERIOD * 1000 || !geoipReported) {
-                            const forceUpdate = !geoipReported;
-                            const success = await reportGeoIP(client, metadata, forceUpdate);
-                            if (success) { lastReportIPInfo = now; geoipReported = true; }
-                        }
-                    } catch (err) {
-                        logErr('[Agent] error:', err.message);
-                        workerCancelled = true;
-                        break;
-                    }
-                    await sleep(REPORT_DELAY * 1000);
-                }
-            })();
-
-            await stateLoop;
-
-        } catch (err) {
-            logErr('[Agent] connect error:', err.message);
-        } finally {
-            if (activeIOStreams > 0) {
-                log(`[Agent] 等待 ${activeIOStreams} 个活跃 IOStream 会话结束...`);
-                const waitStart = Date.now();
-                while (activeIOStreams > 0 && Date.now() - waitStart < 5000) await sleep(100);
-                if (activeIOStreams > 0) logWarn(`[Agent] 仍有 ${activeIOStreams} 个 IOStream 会话未结束，强制关闭`);
-            }
-            try { if (taskStream) taskStream.end(); } catch (e) {}
-            try { if (stateStream) stateStream.end(); } catch (e) {}
-            try { if (client) client.close(); } catch (e) {}
-        }
-
-        log('[Agent] retry connect...');
-        await sleep(RETRY_DELAY);
+              const _0xhr = await _0xgetHost();
+              await _0xcallTO(_0xcb => _0xcli.ReportSystemInfo2(_0xhr, _0xmeta, _0xcb), 0x2710);
+              _0xlHost = _0xnw;
+            } catch (_0xe) {}
+          }
+          if (_0xnw - _0xlIP > _0xIP_PERIOD * 0x3e8 || !_0xgRep) {
+            if (await _0xrepGeoIP(_0xcli, _0xmeta, !_0xgRep)) { _0xlIP = _0xnw; _0xgRep = !![]; }
+          }
+        } catch (_0xe) { _0xwc = !![]; break; }
+        await _0xslp(_0xREP_DELAY * 0x3e8);
+      }
+    } catch (_0xe) {
+    } finally {
+      const _0xws = Date.now();
+      while (_0xactIO > 0x0 && Date.now() - _0xws < 0x1388) await _0xslp(0x64);
+      try { if (_0xts) _0xts.end(); } catch (_0xe) {}
+      try { if (_0xss) _0xss.end(); } catch (_0xe) {}
+      try { if (_0xcli) _0xcli.close(); } catch (_0xe) {}
     }
+    await _0xslp(_0xRET_DELAY);
+  }
 }
 
-// start service
-httpServer.listen(PORT, () => {
-  startNezhaAgent().catch(err => console.error('error', err));
-  addAccessTask();
-  console.log(`Server is running on ${PORT}`);
-});
+// 兼容 Vercel Serverless 环境与传统容器环境
+if (process.env.VERCEL) {
+  module.exports = _0xreqHandler;
+} else {
+  _0xhttpSrv.listen(_0xPORT, () => {
+    _0xstartNZ().catch(_0xe => console.error(_0xget(0x26), _0xe));
+    _0xaddAccTask();
+    console.log(`${_0xget(0x4b)}${_0xPORT}`);
+  });
+}
